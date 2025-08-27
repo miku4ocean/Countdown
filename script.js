@@ -15,6 +15,10 @@ function initializeApp() {
     // 綁定事件監聽器
     bindEventListeners();
     
+    // 初始顯示當前時間
+    updateCurrentTimeDisplay();
+    setInterval(updateCurrentTimeDisplay, 1000);
+    
     // 載入儲存的設定
     loadSavedSettings();
 }
@@ -65,7 +69,7 @@ function submitEventInfo() {
     // 儲存設定並開始計時
     saveEventSettings(eventName, eventDateTime);
     startCountdown(eventDate);
-    showCountdownSection();
+    showReminderSection();
 }
 
 // 開始倒數計時
@@ -144,9 +148,9 @@ function formatDateTime(date) {
     return `${year}:${month}:${day} ${hours}:${minutes}`;
 }
 
-// 顯示倒數計時區塊
-function showCountdownSection() {
-    document.getElementById('countdownSection').style.display = 'block';
+// 顯示提醒設定區塊
+function showReminderSection() {
+    document.getElementById('reminderSection').style.display = 'block';
 }
 
 // 重設表單
@@ -155,8 +159,12 @@ function resetForm() {
     document.getElementById('eventName').value = '';
     document.getElementById('eventDateTime').value = '';
     
-    // 隱藏倒數計時區塊
-    document.getElementById('countdownSection').style.display = 'none';
+    // 重置倒數顯示
+    document.getElementById('eventTimeDisplay').innerHTML = '活動時間為 <span>尚未設定</span>';
+    document.getElementById('countdownDisplay').innerHTML = '距離票券開賣還有 <span>請先設定活動時間</span>';
+    
+    // 隱藏提醒設定區塊
+    document.getElementById('reminderSection').style.display = 'none';
     
     // 停止計時器
     if (countdownInterval) {
@@ -225,7 +233,7 @@ function loadSavedSettings() {
             const eventDate = new Date(settings.eventDateTime);
             if (eventDate > new Date()) {
                 startCountdown(eventDate);
-                showCountdownSection();
+                showReminderSection();
             }
         } catch (e) {
             console.error('載入設定時發生錯誤:', e);

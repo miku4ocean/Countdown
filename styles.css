@@ -65,11 +65,18 @@ body[data-theme="dark"] {
 
 .form-group input {
     width: 100%;
-    padding: 12px;
-    border: 1px solid;
-    border-radius: 4px;
-    font-size: 1rem;
+    padding: 15px;
+    border: 2px solid;
+    border-radius: 6px;
+    font-size: 1.1rem;
     transition: border-color 0.3s ease;
+    min-height: 50px;
+}
+
+.form-group input[type="datetime-local"] {
+    padding: 18px;
+    font-size: 1.2rem;
+    min-height: 56px;
 }
 
 /* 明亮風格表單 */
@@ -86,14 +93,25 @@ body[data-theme="light"] .form-group input:focus {
 
 /* 低調風格表單 */
 body[data-theme="dark"] .form-group input {
-    border-color: #666;
-    background-color: #111111;
+    border-color: #888;
+    background-color: #222222;
+    color: #ffffff;
+}
+
+body[data-theme="dark"] .form-group input[type="datetime-local"] {
+    border-color: #ffffff;
+    background-color: #333333;
     color: #ffffff;
 }
 
 body[data-theme="dark"] .form-group input:focus {
     outline: none;
-    border-color: #999;
+    border-color: #ffffff;
+}
+
+body[data-theme="dark"] .form-group input[type="datetime-local"]:focus {
+    border-color: #ffffff;
+    box-shadow: 0 0 0 2px rgba(255,255,255,0.2);
 }
 
 /* 按鈕樣式 */
@@ -160,9 +178,10 @@ body[data-theme="dark"] .btn.secondary:hover {
 
 /* 倒數計時顯示區 */
 .countdown-display {
-    margin-top: 40px;
-    padding-top: 30px;
-    border-top: 1px solid;
+    margin: 30px 0;
+    padding: 25px;
+    border: 2px solid;
+    border-radius: 8px;
 }
 
 body[data-theme="light"] .countdown-display {
@@ -170,7 +189,42 @@ body[data-theme="light"] .countdown-display {
 }
 
 body[data-theme="dark"] .countdown-display {
-    border-color: #333;
+    border-color: #444;
+}
+
+/* 區塊樣式 */
+.event-setup,
+.theme-selector,
+.button-section,
+.reminder-settings {
+    margin: 25px 0;
+    padding: 20px;
+    border: 1px solid;
+    border-radius: 8px;
+}
+
+body[data-theme="light"] .event-setup,
+body[data-theme="light"] .theme-selector,
+body[data-theme="light"] .button-section,
+body[data-theme="light"] .reminder-settings {
+    border-color: #ddd;
+    background-color: #f9f9f9;
+}
+
+body[data-theme="dark"] .event-setup,
+body[data-theme="dark"] .theme-selector,
+body[data-theme="dark"] .button-section,
+body[data-theme="dark"] .reminder-settings {
+    border-color: #444;
+    background-color: #111111;
+}
+
+/* 區塊標題 */
+.theme-selector h3,
+.reminder-settings h3 {
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+    font-weight: 600;
 }
 
 .time-info {
@@ -201,57 +255,21 @@ body[data-theme="dark"] .countdown-text {
     background-color: #111111;
 }
 
-/* 風格切換 */
-.theme-selector {
-    margin: 30px 0;
-    padding: 20px;
-    border: 1px solid;
-    border-radius: 8px;
-}
-
-body[data-theme="light"] .theme-selector {
-    border-color: #ddd;
-    background-color: #f9f9f9;
-}
-
-body[data-theme="dark"] .theme-selector {
-    border-color: #444;
-    background-color: #111111;
-}
-
-.theme-selector label {
+/* 風格切換和提醒選項樣式 */
+.theme-selector label,
+.reminder-option label,
+.reminder-times label {
     margin-right: 20px;
     cursor: pointer;
     display: inline-block;
     margin-bottom: 10px;
+    font-size: 1rem;
+    font-weight: 500;
 }
 
-/* 提醒設定 */
-.reminder-settings {
-    margin: 30px 0;
-    padding: 20px;
-    border: 1px solid;
-    border-radius: 8px;
-}
-
-body[data-theme="light"] .reminder-settings {
-    border-color: #ddd;
-    background-color: #f9f9f9;
-}
-
-body[data-theme="dark"] .reminder-settings {
-    border-color: #444;
-    background-color: #111111;
-}
-
+/* 提醒設定樣式調整 */
 .reminder-option {
     margin-bottom: 15px;
-}
-
-.reminder-option label {
-    margin-right: 20px;
-    cursor: pointer;
-    display: inline-block;
 }
 
 .reminder-times {
@@ -270,8 +288,7 @@ body[data-theme="dark"] .reminder-times {
 
 .reminder-times label {
     display: block;
-    margin-bottom: 10px;
-    cursor: pointer;
+    margin-right: 0;
 }
 
 /* 祝福訊息 */

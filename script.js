@@ -260,6 +260,8 @@ function deleteCookie(name) {
 }
 
 // 提醒功能
+let triggeredReminders = new Set(); // 記錄已觸發的提醒
+
 function checkReminders(timeDiff) {
     const reminderRadio = document.querySelector('input[name="reminder"]:checked');
     if (reminderRadio && reminderRadio.value === 'enabled') {
@@ -269,11 +271,15 @@ function checkReminders(timeDiff) {
             const reminderMinutes = parseInt(checkbox.value);
             const reminderTime = reminderMinutes * 60 * 1000; // 轉換為毫秒
             
-            // 檢查是否接近提醒時間（誤差範圍1秒）
-            if (Math.abs(timeDiff - reminderTime) < 1000) {
-                showReminderNotification(timeDiff);
-                // 取消勾選已觸發的提醒
-                checkbox.checked = false;
+            // 檢查是否接近提醒時間（誤差範圍3秒）且尚未觸發
+            if (timeDiff <= reminderTime && timeDiff > (reminderTime - 3000)) {
+                const reminderId = `remind_${reminderMinutes}`;
+                if (!triggeredReminders.has(reminderId)) {
+                    showReminderNotification(timeDiff);
+                    triggeredReminders.add(reminderId);
+                    // 取消勾選已觸發的提醒
+                    checkbox.checked = false;
+                }
             }
         });
     }
@@ -303,6 +309,7 @@ function showReminderNotification(timeDiff) {
 function clearReminders() {
     reminderTimeouts.forEach(timeout => clearTimeout(timeout));
     reminderTimeouts = [];
+    triggeredReminders.clear(); // 清除已觸發提醒的記錄
 }
 
 // 請求通知權限

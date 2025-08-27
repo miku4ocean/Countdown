@@ -1,0 +1,326 @@
+/* 重置和基礎設定 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft JhengHei', sans-serif;
+    line-height: 1.6;
+    transition: all 0.3s ease;
+}
+
+/* 主題變數 - 明亮風格（預設） */
+body[data-theme="light"] {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+/* 主題變數 - 低調風格 */
+body[data-theme="dark"] {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+/* 容器佈局 */
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+/* 標題區塊 */
+.header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.header h1 {
+    font-size: 2.5rem;
+    font-weight: 300;
+    letter-spacing: 2px;
+}
+
+/* 活動設定區 */
+.event-setup {
+    margin-bottom: 30px;
+}
+
+.instruction {
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+/* 明亮風格表單 */
+body[data-theme="light"] .form-group input {
+    border-color: #ccc;
+    background-color: #ffffff;
+    color: #000000;
+}
+
+body[data-theme="light"] .form-group input:focus {
+    outline: none;
+    border-color: #666;
+}
+
+/* 低調風格表單 */
+body[data-theme="dark"] .form-group input {
+    border-color: #666;
+    background-color: #111111;
+    color: #ffffff;
+}
+
+body[data-theme="dark"] .form-group input:focus {
+    outline: none;
+    border-color: #999;
+}
+
+/* 按鈕樣式 */
+.button-group {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    padding: 12px 24px;
+    border: 1px solid;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex: 1;
+    min-width: 120px;
+}
+
+/* 明亮風格按鈕 */
+body[data-theme="light"] .btn.primary {
+    background-color: #000000;
+    color: #ffffff;
+    border-color: #000000;
+}
+
+body[data-theme="light"] .btn.primary:hover {
+    background-color: #333333;
+    border-color: #333333;
+}
+
+body[data-theme="light"] .btn.secondary {
+    background-color: #ffffff;
+    color: #000000;
+    border-color: #000000;
+}
+
+body[data-theme="light"] .btn.secondary:hover {
+    background-color: #f5f5f5;
+}
+
+/* 低調風格按鈕 */
+body[data-theme="dark"] .btn.primary {
+    background-color: #ffffff;
+    color: #000000;
+    border-color: #ffffff;
+}
+
+body[data-theme="dark"] .btn.primary:hover {
+    background-color: #cccccc;
+    border-color: #cccccc;
+}
+
+body[data-theme="dark"] .btn.secondary {
+    background-color: #000000;
+    color: #ffffff;
+    border-color: #ffffff;
+}
+
+body[data-theme="dark"] .btn.secondary:hover {
+    background-color: #333333;
+}
+
+/* 倒數計時顯示區 */
+.countdown-display {
+    margin-top: 40px;
+    padding-top: 30px;
+    border-top: 1px solid;
+}
+
+body[data-theme="light"] .countdown-display {
+    border-color: #eee;
+}
+
+body[data-theme="dark"] .countdown-display {
+    border-color: #333;
+}
+
+.time-info {
+    margin-bottom: 30px;
+}
+
+.time-info p {
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.countdown-text {
+    font-size: 1.3rem;
+    font-weight: 600;
+    padding: 15px;
+    border: 2px solid;
+    border-radius: 8px;
+    text-align: center;
+}
+
+body[data-theme="light"] .countdown-text {
+    border-color: #000000;
+    background-color: #f9f9f9;
+}
+
+body[data-theme="dark"] .countdown-text {
+    border-color: #ffffff;
+    background-color: #111111;
+}
+
+/* 風格切換 */
+.theme-selector {
+    margin: 30px 0;
+    padding: 20px;
+    border: 1px solid;
+    border-radius: 8px;
+}
+
+body[data-theme="light"] .theme-selector {
+    border-color: #ddd;
+    background-color: #f9f9f9;
+}
+
+body[data-theme="dark"] .theme-selector {
+    border-color: #444;
+    background-color: #111111;
+}
+
+.theme-selector label {
+    margin-right: 20px;
+    cursor: pointer;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+/* 提醒設定 */
+.reminder-settings {
+    margin: 30px 0;
+    padding: 20px;
+    border: 1px solid;
+    border-radius: 8px;
+}
+
+body[data-theme="light"] .reminder-settings {
+    border-color: #ddd;
+    background-color: #f9f9f9;
+}
+
+body[data-theme="dark"] .reminder-settings {
+    border-color: #444;
+    background-color: #111111;
+}
+
+.reminder-option {
+    margin-bottom: 15px;
+}
+
+.reminder-option label {
+    margin-right: 20px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.reminder-times {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid;
+}
+
+body[data-theme="light"] .reminder-times {
+    border-color: #ccc;
+}
+
+body[data-theme="dark"] .reminder-times {
+    border-color: #555;
+}
+
+.reminder-times label {
+    display: block;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+/* 祝福訊息 */
+.success-message {
+    text-align: center;
+    margin: 40px 0;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+/* 響應式設計 */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+    
+    .header h1 {
+        font-size: 2rem;
+    }
+    
+    .button-group {
+        flex-direction: column;
+    }
+    
+    .btn {
+        flex: none;
+        min-width: auto;
+    }
+    
+    .theme-selector label,
+    .reminder-option label {
+        display: block;
+        margin-bottom: 10px;
+        margin-right: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 10px;
+    }
+    
+    .header h1 {
+        font-size: 1.8rem;
+    }
+    
+    .form-group input,
+    .btn {
+        font-size: 0.9rem;
+        padding: 10px;
+    }
+}

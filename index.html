@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>搶票計時器</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 1. 標題區塊 -->
+        <header class="header">
+            <h1>搶票計時器</h1>
+        </header>
+
+        <!-- 2. 活動資訊設定區 -->
+        <section class="event-setup">
+            <p class="instruction">請輸入活動資訊</p>
+            
+            <div class="form-group">
+                <label for="eventName">活動名稱：</label>
+                <input type="text" id="eventName" maxlength="25" placeholder="請輸入活動名稱（限25字）">
+            </div>
+            
+            <div class="form-group">
+                <label for="eventDateTime">活動時間：</label>
+                <input type="datetime-local" id="eventDateTime">
+            </div>
+            
+            <div class="button-group">
+                <button id="submitBtn" class="btn primary">確定送出</button>
+                <button id="resetBtn" class="btn secondary">重新設定</button>
+            </div>
+        </section>
+
+        <!-- 3. 倒數計時區（初始隱藏） -->
+        <section class="countdown-display" id="countdownSection" style="display: none;">
+            <div class="time-info">
+                <p id="eventTimeDisplay">活動時間為 <span></span></p>
+                <p id="currentTimeDisplay">現在時間為 <span></span></p>
+                <p id="countdownDisplay" class="countdown-text">距離票券開賣還有 <span></span></p>
+            </div>
+            
+            <!-- 風格切換 -->
+            <div class="theme-selector">
+                <label>
+                    <input type="radio" name="theme" value="light" checked>
+                    <span>◎明亮風格</span>
+                </label>
+                <label>
+                    <input type="radio" name="theme" value="dark">
+                    <span>◎低調風格</span>
+                </label>
+            </div>
+
+            <!-- 4. 提醒設定 -->
+            <div class="reminder-settings">
+                <div class="reminder-option">
+                    <label>
+                        <input type="radio" name="reminder" value="none" checked>
+                        <span>◎無提醒</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="reminder" value="enabled">
+                        <span>◎開啟提醒</span>
+                    </label>
+                </div>
+                
+                <div class="reminder-times" id="reminderTimes" style="display: none;">
+                    <label>
+                        <input type="checkbox" value="60">
+                        <span>□1小時前</span>
+                    </label>
+                    <label>
+                        <input type="checkbox" value="30">
+                        <span>□30分鐘前</span>
+                    </label>
+                    <label>
+                        <input type="checkbox" value="5">
+                        <span>□5分鐘前</span>
+                    </label>
+                    <label>
+                        <input type="checkbox" value="1">
+                        <span>□1分鐘前</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- 5. 祝福訊息 -->
+            <div class="success-message">
+                <p>祝你搶票成功！</p>
+            </div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

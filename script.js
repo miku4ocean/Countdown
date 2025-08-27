@@ -279,34 +279,57 @@ function checkReminders(timeDiff) {
             const reminderMinutes = parseInt(checkbox.value);
             const reminderTime = reminderMinutes * 60 * 1000; // 轉換為毫秒
             
-            // 檢查是否接近提醒時間（誤差範圍3秒）且尚未觸發
-            if (timeDiff <= reminderTime && timeDiff > (reminderTime - 3000)) {
+            // 檢查是否接近提醒時間（誤差範圍5秒）且尚未觸發
+            if (timeDiff <= reminderTime && timeDiff > (reminderTime - 5000)) {
                 const reminderId = `remind_${reminderMinutes}`;
                 if (!triggeredReminders.has(reminderId)) {
-                    showReminderNotification(timeDiff);
+                    showReminderNotification(timeDiff, reminderMinutes);
                     triggeredReminders.add(reminderId);
-                    // 取消勾選已觸發的提醒
-                    checkbox.checked = false;
+                    // 標記已觸發但不取消勾選，讓用戶知道哪些提醒已觸發
+                    checkbox.disabled = true;
+                    checkbox.parentElement.style.opacity = '0.5';
                 }
             }
         });
     }
 }
 
-function showReminderNotification(timeDiff) {
+function showReminderNotification(timeDiff, reminderMinutes) {
     const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
     const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
     const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
     
-    const timeText = `${days}天${hours}小時${minutes}分鐘${seconds}秒`;
-    const message = `距離開賣，還剩下 ${timeText} 時間。`;
+    let timeText = '';
+    if (days > 0) timeText += `${days}天`;
+    if (hours > 0) timeText += `${hours}小時`;
+    if (minutes > 0) timeText += `${minutes}分鐘`;
+    timeText += `${seconds}秒`;
+    
+    const eventName = document.getElementById('eventName').value || '活動';
+    const message = `${eventName}開賣提醒：還剩下 ${timeText}`;
     
     // 使用瀏覽器通知（如果支援）
     if ('Notification' in window && Notification.permission === 'granted') {
-        new Notification('搶票計時器提醒', {
+        const notification = new Notification('🎫 搶票計時器提醒', {
             body: message,
-            icon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>'
+            icon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>',
+            requireInteraction: true,
+            tag: `reminder-${reminderMinutes}`
+        });
+        
+        // 5秒後自動關閉通知
+        setTimeout(() => {
+            notification.close();
+        }, 5000);
+    } else if ('Notification' in window && Notification.permission === 'default') {
+        // 如果權限還是default，再次請求權限
+        Notification.requestPermission().then(permission => {
+            if (permission === 'granted') {
+                showReminderNotification(timeDiff, reminderMinutes);
+            } else {
+                alert(message);
+            }
         });
     } else {
         // fallback 使用 alert
@@ -318,12 +341,26 @@ function clearReminders() {
     reminderTimeouts.forEach(timeout => clearTimeout(timeout));
     reminderTimeouts = [];
     triggeredReminders.clear(); // 清除已觸發提醒的記錄
+    
+    // 重置提醒checkbox的狀態
+    const checkboxes = document.querySelectorAll('#reminderTimes input[type="checkbox"]');
+    checkboxes.forEach(checkbox => {
+        checkbox.disabled = false;
+        checkbox.parentElement.style.opacity = '1';
+        checkbox.checked = false;
+    });
 }
 
 // 請求通知權限
 function requestNotificationPermission() {
     if ('Notification' in window && Notification.permission === 'default') {
-        Notification.requestPermission();
+        Notification.requestPermission().then(permission => {
+            if (permission === 'granted') {
+                console.log('通知權限已獲得');
+            } else if (permission === 'denied') {
+                console.log('通知權限被拒絕，將使用彈窗提醒');
+            }
+        });
     }
 }
 

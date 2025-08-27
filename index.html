@@ -33,32 +33,11 @@
             
             <div class="form-group">
                 <label for="eventDateTime">活動時間：</label>
-                <input type="datetime-local" id="eventDateTime">
+                <input type="datetime-local" id="eventDateTime" placeholder="選擇活動時間">
             </div>
         </section>
 
-        <!-- 3. 版面風格選擇 -->
-        <section class="theme-selector">
-            <h3>版面風格</h3>
-            <label>
-                <input type="radio" name="theme" value="light" checked>
-                <span>明亮風格</span>
-            </label>
-            <label>
-                <input type="radio" name="theme" value="dark">
-                <span>低調風格</span>
-            </label>
-        </section>
-
-        <!-- 4. 確定送出或重新設定 -->
-        <section class="button-section">
-            <div class="button-group">
-                <button id="submitBtn" class="btn primary">確定送出</button>
-                <button id="resetBtn" class="btn secondary">重新設定</button>
-            </div>
-        </section>
-
-        <!-- 提醒設定區（送出後顯示） -->
+        <!-- 3. 提醒設定 -->
         <section class="reminder-settings" id="reminderSection" style="display: none;">
             <h3>開啟提醒</h3>
             <div class="reminder-option">
@@ -92,7 +71,28 @@
             </div>
         </section>
 
-        <!-- 5. 祝你搶票成功 -->
+        <!-- 4. 確定送出或重新設定 -->
+        <section class="button-section">
+            <div class="button-group">
+                <button id="submitBtn" class="btn primary">確定送出</button>
+                <button id="resetBtn" class="btn secondary">重新設定</button>
+            </div>
+        </section>
+
+        <!-- 5. 版面風格選擇 -->
+        <section class="theme-selector">
+            <h3>版面風格</h3>
+            <label>
+                <input type="radio" name="theme" value="light" checked>
+                <span>明亮風格</span>
+            </label>
+            <label>
+                <input type="radio" name="theme" value="dark">
+                <span>低調風格</span>
+            </label>
+        </section>
+
+        <!-- 6. 祝你搶票成功 -->
         <section class="success-message">
             <p>祝你搶票成功！</p>
         </section>

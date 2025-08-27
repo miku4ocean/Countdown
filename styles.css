@@ -94,13 +94,13 @@ body[data-theme="light"] .form-group input:focus {
 /* 低調風格表單 */
 body[data-theme="dark"] .form-group input {
     border-color: #888;
-    background-color: #222222;
+    background-color: #404040;
     color: #ffffff;
 }
 
 body[data-theme="dark"] .form-group input[type="datetime-local"] {
     border-color: #ffffff;
-    background-color: #333333;
+    background-color: #505050;
     color: #ffffff;
 }
 

@@ -99,7 +99,7 @@ function updateCountdown(eventDate) {
         // 活動時間已到
         clearInterval(countdownInterval);
         document.getElementById('countdownDisplay').innerHTML = 
-            '距離票券開賣還有 <span style="color: #ff0000; font-weight: bold;">開賣時間已到！</span>';
+            '<span style="color: #ff0000; font-weight: bold;">開賣時間已到！</span>';
         return;
     }
     
@@ -115,7 +115,7 @@ function updateCountdown(eventDate) {
     // 更新倒數計時顯示
     const countdownText = `${days}天${hours}小時${minutes}分鐘${seconds}秒`;
     document.getElementById('countdownDisplay').innerHTML = 
-        `距離票券開賣還有 <span>${countdownText}</span>`;
+        `<span>距離票券開賣還有 ${countdownText}</span>`;
     
     // 檢查提醒
     checkReminders(timeDiff);
@@ -156,7 +156,7 @@ function resetForm() {
     
     // 重置倒數顯示
     document.getElementById('eventTimeDisplay').innerHTML = '活動時間為 <span>尚未設定</span>';
-    document.getElementById('countdownDisplay').innerHTML = '距離票券開賣還有 <span>請先設定活動時間</span>';
+    document.getElementById('countdownDisplay').innerHTML = '<span>請先設定活動時間</span>';
     
     
     // 停止計時器

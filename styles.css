@@ -246,13 +246,15 @@ body[data-theme="dark"] .reminder-settings {
 }
 
 body[data-theme="light"] .countdown-text {
-    border-color: #000000;
-    background-color: #f9f9f9;
+    border-color: #888888;
+    background-color: #000000;
+    color: #ffff00;
 }
 
 body[data-theme="dark"] .countdown-text {
     border-color: #ffffff;
-    background-color: #111111;
+    background-color: #000000;
+    color: #ffff00;
 }
 
 /* 風格切換和提醒選項樣式 */

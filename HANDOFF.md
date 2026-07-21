@@ -1,5 +1,5 @@
 # HANDOFF — Countdown
-更新：2026-07-05／claude
+更新：2026-07-21／claude
 
 ## 目前目標
 搶票倒數計時器靜態工具，供使用者設定活動時間並在關鍵時間點收到提醒。
@@ -7,12 +7,14 @@
 ## 狀態
 - 已完成：標題修正（bf5c9cb，2025-08-27）；含測試頁面 test.html 與測試報告
 - 進行中：無 WIP，工作區乾淨
-- 驗收現況：未驗證（README 聲稱通過 95/100 功能測試，需實際開啟確認）
+- 驗收現況：已實測確認（Playwright headless 跑完整流程：DOM id 對應、倒數計算、
+  主題切換、提醒開關、重設，全部正常；node --check script.js 通過；無硬編碼金鑰）
+  唯一發現的問題（favicon.ico 404 造成 console 錯誤）已修復，改為內嵌 data URI icon
 
 ## 下一步（接手的人從這裡開始）
-1. 用瀏覽器開啟 `index.html` 確認基本倒數計時功能正常
-2. 開啟 `test.html` 跑內建測試頁，確認功能完整性
-3. 若需部署：推送至 GitHub 開啟 Pages（README 有 GitHub Pages URL）
+1. 若要部署：push 到 GitHub 開啟 Pages（README 有 GitHub Pages URL），本輪未對外部署
+2. 可選：把 test.html 檢核清單第 76 行文字（「時間已到！」）對齊實際程式顯示的
+   「開賣時間已到！」，目前只是文件用字不完全一致，不影響功能
 
 ## 地雷（別踩）
 - 瀏覽器通知需使用者授權，若在無 HTTPS 環境（除 localhost）可能無法觸發

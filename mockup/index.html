@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Countdown — Mockup 總覽</title>
+<style>
+:root{
+  --paper:#FBFAF7; --ink:#181B20; --muted:#6B7178;
+  --line:#E7E3DA; --accent:#2E4B8F; --accent-soft:#EAEEF7;
+  --ok:#1F7A54; --err:#B03A2E; --warn:#B8860B;
+  --serif:"Iowan Old Style",Georgia,"Times New Roman",serif;
+  --sans:ui-sans-serif,system-ui,"Segoe UI",Roboto,"Noto Sans TC",sans-serif;
+  --mono:ui-monospace,"SF Mono","Cascadia Code",Menlo,monospace;
+}
+*{box-sizing:border-box;}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.6;padding:40px 20px 64px;}
+.wrap{max-width:760px;margin:0 auto;}
+.wordmark{font-family:var(--serif);font-size:1.7rem;font-weight:600;margin:0 0 4px;}
+.wordmark .dot{color:var(--accent);}
+.subtitle{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:0 0 32px;}
+
+.note{border:1px solid var(--line);border-radius:8px;background:#fff;padding:14px 18px;margin-bottom:28px;font-size:.88rem;color:var(--muted);}
+.note b{color:var(--ink);}
+
+.section-title{font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:0 0 12px;}
+
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:32px;}
+@media(max-width:600px){.grid{grid-template-columns:1fr;}}
+.card{
+  border:1px solid var(--line);border-radius:10px;background:#fff;padding:18px 20px;
+  text-decoration:none;color:var(--ink);display:block;transition:border-color .15s;
+}
+.card:hover{border-color:var(--accent);}
+.card .k{font-family:var(--mono);font-size:.68rem;color:var(--accent);letter-spacing:.05em;text-transform:uppercase;margin-bottom:6px;}
+.card h3{margin:0 0 6px;font-size:1rem;}
+.card p{margin:0;font-size:.82rem;color:var(--muted);}
+
+.summary{border:1px solid var(--line);border-radius:10px;background:#fff;padding:18px 20px;}
+.summary ul{margin:0;padding-left:18px;font-size:.85rem;}
+.summary li{margin-bottom:6px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="wordmark">Countdown<span class="dot">.</span></p>
+  <p class="subtitle">Mockup 總覽 — 搶票倒數計時器</p>
+
+  <div class="note">
+    <b>依實際頁面推導：</b>本專案是純靜態單頁工具（無後端、無路由框架），實際只有 <b>2 個 HTML 頁面</b>：
+    使用者主頁 <code>index.html</code> 與開發用測試檢核頁 <code>test.html</code>。沒有後台／管理介面（AGENTS.md 明訂禁區：不引入後端）。
+  </div>
+
+  <p class="section-title">頁面清單</p>
+  <div class="grid">
+    <a class="card" href="front-timer.html">
+      <div class="k">前台 · 主頁面</div>
+      <h3>倒數計時主頁</h3>
+      <p>對應 index.html — 活動設定、倒數顯示、提醒、主題切換</p>
+    </a>
+    <a class="card" href="front-test-harness.html">
+      <div class="k">前台 · 開發／QA</div>
+      <h3>功能測試檢核頁</h3>
+      <p>對應 test.html — iframe 內嵌主頁 ＋ 手動測試檢核清單</p>
+    </a>
+  </div>
+
+  <p class="section-title">架構圖</p>
+  <div class="grid">
+    <a class="card" href="../docs/architecture.html">
+      <div class="k">Docs</div>
+      <h3>architecture.html</h3>
+      <p>五層架構圖，keystone：本機 Cookie 儲存</p>
+    </a>
+    <a class="card" href="../docs/architecture.svg">
+      <div class="k">Docs</div>
+      <h3>architecture.svg</h3>
+      <p>向量版架構圖</p>
+    </a>
+  </div>
+
+  <div class="summary">
+    <p class="section-title" style="margin-bottom:10px;">未列入 mockup 的原因</p>
+    <ul>
+      <li>無後台／管理頁面 — 本專案無帳號系統、無後端，AGENTS.md 明訂禁區：不引入後端或 npm 依賴</li>
+      <li>無其他路由 — 純靜態雙檔（index.html + test.html），無框架、無 SPA 路由</li>
+    </ul>
+  </div>
+</div>
+</body>
+</html>

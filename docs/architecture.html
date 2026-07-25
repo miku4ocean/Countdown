@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Countdown — 架構圖</title>
+<style>
+:root{
+  --paper:#FBFAF7; --ink:#181B20; --muted:#6B7178;
+  --line:#E7E3DA; --accent:#2E4B8F; --accent-soft:#EAEEF7;
+  --ok:#1F7A54; --err:#B03A2E; --warn:#B8860B;
+  --serif:"Iowan Old Style",Georgia,"Times New Roman",serif;
+  --sans:ui-sans-serif,system-ui,"Segoe UI",Roboto,"Noto Sans TC",sans-serif;
+  --mono:ui-monospace,"SF Mono","Cascadia Code",Menlo,monospace;
+}
+*{box-sizing:border-box;}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:var(--sans); line-height:1.6;
+  padding:40px 24px 80px;
+}
+.wrap{max-width:960px; margin:0 auto;}
+.wordmark{
+  font-family:var(--serif); font-size:1.6rem; font-weight:600;
+  margin:0 0 4px;
+}
+.wordmark .dot{color:var(--accent);}
+.subtitle{
+  font-family:var(--mono); font-size:.72rem; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--muted); margin:0 0 40px;
+}
+.section-title{
+  font-family:var(--mono); font-size:.72rem; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--muted); margin:0 0 14px;
+}
+.meta{
+  border:1px solid var(--line); border-radius:10px; background:#fff;
+  padding:16px 20px; margin-bottom:36px; font-size:.9rem; color:var(--muted);
+}
+.meta b{color:var(--ink); font-weight:600;}
+.layer{
+  border:1px solid var(--line); border-radius:10px; background:#fff;
+  padding:20px 22px; margin-bottom:14px; position:relative;
+}
+.layer-head{
+  display:flex; align-items:baseline; gap:10px; margin-bottom:14px;
+}
+.layer-num{
+  font-family:var(--mono); font-size:.78rem; color:var(--accent);
+  border:1px solid var(--accent-soft); background:var(--accent-soft);
+  border-radius:5px; padding:2px 8px;
+}
+.layer-name{font-weight:600; font-size:1.02rem;}
+.layer-file{
+  font-family:var(--mono); font-size:.76rem; color:var(--muted);
+}
+.nodes{display:flex; flex-wrap:wrap; gap:10px;}
+.node{
+  border:1px solid var(--line); border-radius:8px; background:var(--paper);
+  padding:9px 12px; font-size:.83rem; flex:1 1 190px; min-width:170px;
+}
+.node .t{font-weight:600; display:block; margin-bottom:2px;}
+.node .d{font-family:var(--mono); font-size:.72rem; color:var(--muted);}
+
+.arrow{
+  text-align:center; font-family:var(--mono); font-size:.72rem;
+  color:var(--muted); letter-spacing:.05em; margin:2px 0 12px;
+}
+.arrow .glyph{color:var(--accent);}
+
+/* Keystone emphasis */
+.keystone{
+  border:2px solid var(--accent); background:var(--accent-soft);
+  border-radius:10px; padding:20px 22px; margin:6px 0 14px;
+  box-shadow:0 1px 0 rgba(46,75,143,.05);
+}
+.keystone .layer-num{background:var(--accent); color:#fff; border-color:var(--accent);}
+.badge{
+  display:inline-block; font-family:var(--mono); font-size:.68rem;
+  letter-spacing:.08em; text-transform:uppercase; color:#fff;
+  background:var(--accent); border-radius:5px; padding:3px 8px; margin-left:8px;
+}
+.keystone .node{background:#fff; border-color:#c9d3e8;}
+.keystone-note{
+  margin-top:14px; padding-top:12px; border-top:1px dashed #c9d3e8;
+  font-size:.86rem; color:var(--ink);
+}
+.keystone-note b{color:var(--accent);}
+
+.unconfirmed{
+  border:1px dashed var(--warn); background:var(--paper);
+}
+.unconfirmed .layer-num{background:transparent; color:var(--warn); border-color:var(--warn);}
+.tag{
+  font-family:var(--mono); font-size:.68rem; color:var(--warn);
+  border:1px solid var(--warn); border-radius:4px; padding:1px 6px;
+}
+
+.build-log{
+  margin-top:40px; border:1px solid var(--line); border-radius:10px;
+  background:#fff; padding:18px 22px;
+}
+.build-log ul{list-style:none; margin:0; padding:0;}
+.build-log li{
+  font-family:var(--mono); font-size:.82rem; padding:5px 0;
+  display:flex; gap:10px;
+}
+.ok{color:var(--ok);} .warn{color:var(--warn);} .accent{color:var(--accent);}
+
+.foot{
+  margin-top:32px; font-family:var(--mono); font-size:.72rem;
+  color:var(--muted); text-align:center;
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="wordmark">Countdown<span class="dot">.</span></p>
+  <p class="subtitle">Architecture — 搶票倒數計時器 · 純前端靜態工具</p>
+
+  <div class="meta">
+    來源：實讀 <b>index.html</b> / <b>script.js</b> / <b>styles.css</b> / <b>HANDOFF.md</b> / <b>AGENTS.md</b>（2026-07-24）。
+    本工具<b>無後端、無資料庫、無伺服器端程式</b>——AGENTS.md 明訂「禁區：不要引入後端或 npm 依賴，保持純靜態可離線運作」。
+    以下依真實架構分五層，非硬套範式。
+  </div>
+
+  <p class="section-title">① UI 層</p>
+  <div class="layer">
+    <div class="layer-head">
+      <span class="layer-num">L1</span>
+      <span class="layer-name">單頁六區塊</span>
+      <span class="layer-file">index.html + styles.css</span>
+    </div>
+    <div class="nodes">
+      <div class="node"><span class="t">標題區</span><span class="d">header</span></div>
+      <div class="node"><span class="t">倒數顯示區</span><span class="d">#countdownSection</span></div>
+      <div class="node"><span class="t">活動設定表單</span><span class="d">.event-setup（名稱／時間）</span></div>
+      <div class="node"><span class="t">提醒設定</span><span class="d">.reminder-settings</span></div>
+      <div class="node"><span class="t">送出／重設按鈕</span><span class="d">#submitBtn #resetBtn</span></div>
+      <div class="node"><span class="t">風格選擇</span><span class="d">.theme-selector（明亮／低調）</span></div>
+    </div>
+  </div>
+
+  <div class="arrow">使用者輸入 <span class="glyph">▾</span></div>
+
+  <p class="section-title">② 狀態與邏輯層</p>
+  <div class="layer">
+    <div class="layer-head">
+      <span class="layer-num">L2</span>
+      <span class="layer-name">事件處理與計算</span>
+      <span class="layer-file">script.js</span>
+    </div>
+    <div class="nodes">
+      <div class="node"><span class="t">表單驗證</span><span class="d">submitEventInfo()</span></div>
+      <div class="node"><span class="t">倒數計算</span><span class="d">startCountdown / updateCountdown<br>setInterval 每秒</span></div>
+      <div class="node"><span class="t">主題切換</span><span class="d">changeTheme()</span></div>
+      <div class="node"><span class="t">提醒觸發判斷</span><span class="d">checkReminders()</span></div>
+    </div>
+  </div>
+
+  <div class="arrow"><span class="glyph">▾</span> 呼叫瀏覽器原生能力 <span class="glyph">▾</span></div>
+
+  <p class="section-title">③ 瀏覽器原生 API 層</p>
+  <div class="layer">
+    <div class="layer-head">
+      <span class="layer-num">L3</span>
+      <span class="layer-name">Web Platform APIs</span>
+      <span class="layer-file">window / document</span>
+    </div>
+    <div class="nodes">
+      <div class="node"><span class="t">Notification API</span><span class="d">提醒推播，需使用者授權</span></div>
+      <div class="node"><span class="t">setInterval / setTimeout</span><span class="d">計時心跳</span></div>
+      <div class="node"><span class="t">Date 物件</span><span class="d">時間運算（台灣 UTC+8）</span></div>
+    </div>
+  </div>
+
+  <div class="arrow"><span class="glyph">▾</span></div>
+
+  <p class="section-title">④ 本機儲存層 — 焦點設計決定</p>
+  <div class="keystone">
+    <div class="layer-head">
+      <span class="layer-num">L4</span>
+      <span class="layer-name">document.cookie</span>
+      <span class="badge">KEYSTONE</span>
+    </div>
+    <div class="nodes">
+      <div class="node"><span class="t">eventSettings</span><span class="d">活動名稱＋時間，效期 30 天</span></div>
+      <div class="node"><span class="t">theme</span><span class="d">明亮／低調風格，效期 30 天</span></div>
+    </div>
+    <div class="keystone-note">
+      <b>關鍵設計決定：</b>Countdown 沒有伺服器、沒有帳號系統、沒有資料庫——所有活動設定與主題偏好
+      只寫進使用者瀏覽器的 <b>Cookie（30 天）</b>，倒數計算與提醒判斷全在前端 JS 完成，
+      <b>沒有任何一筆資料離開使用者的裝置</b>。這是它「單檔零依賴、可離線使用、關掉分頁資料仍在」的來源。
+      代價：清除 Cookie＝設定遺失（HANDOFF.md 已列為已知地雷）。
+    </div>
+  </div>
+
+  <div class="arrow"><span class="glyph">▾</span> 部署（非執行期依賴） <span class="glyph">▾</span></div>
+
+  <p class="section-title">⑤ 外部依賴</p>
+  <div class="layer unconfirmed">
+    <div class="layer-head">
+      <span class="layer-num">L5</span>
+      <span class="layer-name">未確認 / 無執行期外部依賴</span>
+      <span class="tag">誠實標示</span>
+    </div>
+    <div class="nodes">
+      <div class="node"><span class="t">GitHub Pages</span><span class="d">僅作靜態檔案托管（README 記載線上網址），非程式執行期呼叫任何 API</span></div>
+    </div>
+  </div>
+
+  <div class="build-log">
+    <p class="section-title" style="margin-bottom:10px;">Build Log — 架構重點</p>
+    <ul>
+      <li><span class="ok">✓</span> 五層皆為前端瀏覽器內執行，無 Worker、無 API 層、無資料庫</li>
+      <li><span class="ok">✓</span> 唯一資料落地點：Cookie（本機、30 天、不上傳）</li>
+      <li><span class="accent">▸</span> 提醒功能仰賴 Notification API 授權，非 HTTPS（除 localhost）環境可能無法觸發（HANDOFF.md 地雷）</li>
+      <li><span class="warn">✗</span> 外部依賴一欄「未確認」項目已標示，不臆造</li>
+    </ul>
+  </div>
+
+  <p class="foot">docs/architecture.html · 依 Galley 視覺語言 · 資料來源：專案內實讀檔案，2026-07-24</p>
+</div>
+</body>
+</html>

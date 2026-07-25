@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Countdown — Mockup／測試檢核頁</title>
+<style>
+:root{
+  --paper:#FBFAF7; --ink:#181B20; --muted:#6B7178;
+  --line:#E7E3DA; --accent:#2E4B8F; --accent-soft:#EAEEF7;
+  --ok:#1F7A54; --err:#B03A2E; --warn:#B8860B;
+  --serif:"Iowan Old Style",Georgia,"Times New Roman",serif;
+  --sans:ui-sans-serif,system-ui,"Segoe UI",Roboto,"Noto Sans TC",sans-serif;
+  --mono:ui-monospace,"SF Mono","Cascadia Code",Menlo,monospace;
+}
+*{box-sizing:border-box;}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.6;padding:32px 20px 64px;}
+.topbar{max-width:760px;margin:0 auto 24px;display:flex;align-items:baseline;justify-content:space-between;}
+.wordmark{font-family:var(--serif);font-size:1.3rem;font-weight:600;margin:0;}
+.wordmark .dot{color:var(--accent);}
+.crumb{font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);}
+.crumb a{color:var(--accent);text-decoration:none;}
+
+.note{
+  max-width:760px;margin:0 auto 24px;border:1px solid var(--line);border-radius:8px;
+  background:#fff;padding:10px 14px;font-family:var(--mono);font-size:.72rem;color:var(--muted);
+}
+.note b{color:var(--ink);}
+
+.page{max-width:760px;margin:0 auto;border:1px solid var(--line);border-radius:10px;background:#fff;padding:28px 24px;}
+h1{font-size:1.3rem;margin:0 0 20px;}
+.section-title{
+  font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted);margin:0 0 8px;
+}
+.iframe-box{
+  border:1px dashed var(--line);border-radius:8px;height:160px;margin-bottom:24px;
+  display:flex;align-items:center;justify-content:center;color:var(--muted);font-family:var(--mono);font-size:.8rem;
+  background:var(--paper);
+}
+.checklist{border:1px solid var(--line);border-radius:8px;padding:16px 18px;margin-bottom:14px;background:var(--paper);}
+.checklist h3{font-size:.9rem;margin:0 0 8px;}
+.checklist ul{margin:0;padding-left:18px;font-size:.82rem;color:var(--ink);}
+.checklist li{margin-bottom:4px;}
+.status{font-family:var(--mono);font-size:.72rem;color:var(--ok);margin-right:6px;}
+</style>
+</head>
+<body>
+  <div class="topbar">
+    <p class="wordmark">Countdown<span class="dot">.</span></p>
+    <p class="crumb"><a href="index.html">← mockup 總覽</a></p>
+  </div>
+
+  <div class="note">
+    <b>來源：</b>test.html（實際存在的 QA 檢核頁，非最終使用者頁面，供開發／驗收使用）。此為線框稿，非真功能。
+  </div>
+
+  <div class="page">
+    <h1>搶票計時器 — 功能測試頁面</h1>
+
+    <p class="section-title">實際應用程式（iframe 內嵌 index.html）</p>
+    <div class="iframe-box">&lt;iframe src="index.html"&gt;</div>
+
+    <p class="section-title">手動測試檢核清單</p>
+
+    <div class="checklist">
+      <h3><span class="status">✓</span>基本介面測試</h3>
+      <ul>
+        <li>標題「搶票計時器」是否正確顯示</li>
+        <li>表單欄位是否完整（活動名稱、活動時間）</li>
+        <li>按鈕是否正常顯示（確定送出、重新設定）</li>
+      </ul>
+    </div>
+
+    <div class="checklist">
+      <h3><span class="status">✓</span>表單驗證測試</h3>
+      <ul>
+        <li>空白活動名稱／未選時間／過去時間是否顯示錯誤訊息</li>
+        <li>活動名稱超過25字時是否被限制</li>
+      </ul>
+    </div>
+
+    <div class="checklist">
+      <h3><span class="status">✓</span>倒數計時功能</h3>
+      <ul>
+        <li>活動時間顯示格式（yyyy:MM:dd HH:mm）</li>
+        <li>當前時間是否正確顯示台灣時間</li>
+        <li>倒數計時是否準確（天、時、分、秒）</li>
+      </ul>
+    </div>
+
+    <div class="checklist">
+      <h3><span class="status">✓</span>主題切換 / 提醒 / Cookie 儲存測試</h3>
+      <ul>
+        <li>明亮／低調風格切換是否同步全元素</li>
+        <li>提醒時間選項（1小時／30分／5分／1分前）是否完整</li>
+        <li>重新整理頁面後設定與主題是否保留（Cookie 30 天）</li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>

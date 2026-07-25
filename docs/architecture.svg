@@ -1,0 +1,158 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 1400" font-family="ui-sans-serif,system-ui,'Segoe UI',Roboto,'Noto Sans TC',sans-serif">
+  <defs>
+    <style>
+      .paper{fill:#FBFAF7;}
+      .ink{fill:#181B20;}
+      .muted{fill:#6B7178;}
+      .line{stroke:#E7E3DA;}
+      .accent{fill:#2E4B8F;}
+      .accentStroke{stroke:#2E4B8F;}
+      .accentSoft{fill:#EAEEF7;}
+      .warn{stroke:#B8860B;}
+      .warnFill{fill:#B8860B;}
+      .serif{font-family:"Iowan Old Style",Georgia,"Times New Roman",serif;}
+      .mono{font-family:ui-monospace,"SF Mono","Cascadia Code",Menlo,monospace;}
+      .box{fill:#ffffff;stroke:#E7E3DA;stroke-width:1;rx:10;}
+      .node{fill:#FBFAF7;stroke:#E7E3DA;stroke-width:1;rx:6;}
+      .lbl{font-size:14px;font-weight:600;fill:#181B20;}
+      .sub{font-size:11px;fill:#6B7178;font-family:ui-monospace,"SF Mono","Cascadia Code",Menlo,monospace;}
+      .tag{font-size:10px;letter-spacing:.05em;fill:#6B7178;font-family:ui-monospace,"SF Mono","Cascadia Code",Menlo,monospace;text-transform:uppercase;}
+    </style>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="1400" class="paper"/>
+
+  <!-- Wordmark -->
+  <text x="40" y="50" class="serif" font-size="26" font-weight="600" fill="#181B20">Countdown<tspan fill="#2E4B8F">.</tspan></text>
+  <text x="40" y="72" class="mono tag">Architecture — 搶票倒數計時器 · 純前端靜態工具（無後端）</text>
+
+  <!-- L1 UI layer -->
+  <rect x="40" y="100" width="880" height="150" class="box" rx="10"/>
+  <rect x="60" y="118" width="34" height="20" rx="5" fill="#EAEEF7" stroke="#2E4B8F"/>
+  <text x="77" y="132" text-anchor="middle" class="mono" font-size="11" fill="#2E4B8F">L1</text>
+  <text x="104" y="133" class="lbl">① UI 層 — 單頁六區塊</text>
+  <text x="104" y="149" class="sub">index.html + styles.css</text>
+
+  <g class="mono">
+    <rect x="60" y="160" width="130" height="70" class="node"/>
+    <text x="70" y="180" font-size="12" font-weight="600" fill="#181B20" font-family="ui-sans-serif,system-ui">標題區</text>
+    <text x="70" y="196" class="sub" font-size="10">header</text>
+
+    <rect x="200" y="160" width="150" height="70" class="node"/>
+    <text x="210" y="180" font-size="12" font-weight="600" fill="#181B20" font-family="ui-sans-serif,system-ui">倒數顯示區</text>
+    <text x="210" y="196" class="sub" font-size="10">#countdownSection</text>
+
+    <rect x="360" y="160" width="160" height="70" class="node"/>
+    <text x="370" y="180" font-size="12" font-weight="600" fill="#181B20" font-family="ui-sans-serif,system-ui">活動設定表單</text>
+    <text x="370" y="196" class="sub" font-size="10">.event-setup（名稱／時間）</text>
+
+    <rect x="530" y="160" width="150" height="70" class="node"/>
+    <text x="540" y="180" font-size="12" font-weight="600" fill="#181B20" font-family="ui-sans-serif,system-ui">提醒設定</text>
+    <text x="540" y="196" class="sub" font-size="10">.reminder-settings</text>
+
+    <rect x="690" y="160" width="110" height="70" class="node"/>
+    <text x="700" y="180" font-size="12" font-weight="600" fill="#181B20" font-family="ui-sans-serif,system-ui">送出／重設</text>
+    <text x="700" y="196" class="sub" font-size="10">#submitBtn</text>
+
+    <rect x="60" y="160" width="0" height="0"/>
+  </g>
+  <rect x="810" y="160" width="90" height="70" class="node"/>
+  <text x="820" y="180" font-size="12" font-weight="600" fill="#181B20">風格選擇</text>
+  <text x="820" y="196" class="sub" font-size="10">明亮／低調</text>
+
+  <!-- arrow -->
+  <text x="480" y="272" text-anchor="middle" class="mono" font-size="12" fill="#6B7178">使用者輸入 <tspan fill="#2E4B8F">▾</tspan></text>
+
+  <!-- L2 logic layer -->
+  <rect x="40" y="290" width="880" height="150" class="box" rx="10"/>
+  <rect x="60" y="308" width="34" height="20" rx="5" fill="#EAEEF7" stroke="#2E4B8F"/>
+  <text x="77" y="322" text-anchor="middle" class="mono" font-size="11" fill="#2E4B8F">L2</text>
+  <text x="104" y="323" class="lbl">② 狀態與邏輯層 — 事件處理與計算</text>
+  <text x="104" y="339" class="sub">script.js</text>
+
+  <rect x="60" y="350" width="190" height="70" class="node"/>
+  <text x="70" y="370" font-size="12" font-weight="600" fill="#181B20">表單驗證</text>
+  <text x="70" y="386" class="sub" font-size="10">submitEventInfo()</text>
+
+  <rect x="270" y="350" width="230" height="70" class="node"/>
+  <text x="280" y="370" font-size="12" font-weight="600" fill="#181B20">倒數計算</text>
+  <text x="280" y="386" class="sub" font-size="10">startCountdown / updateCountdown</text>
+  <text x="280" y="400" class="sub" font-size="10">setInterval 每秒</text>
+
+  <rect x="520" y="350" width="160" height="70" class="node"/>
+  <text x="530" y="370" font-size="12" font-weight="600" fill="#181B20">主題切換</text>
+  <text x="530" y="386" class="sub" font-size="10">changeTheme()</text>
+
+  <rect x="700" y="350" width="200" height="70" class="node"/>
+  <text x="710" y="370" font-size="12" font-weight="600" fill="#181B20">提醒觸發判斷</text>
+  <text x="710" y="386" class="sub" font-size="10">checkReminders()</text>
+
+  <text x="480" y="462" text-anchor="middle" class="mono" font-size="12" fill="#6B7178">呼叫瀏覽器原生能力 <tspan fill="#2E4B8F">▾</tspan></text>
+
+  <!-- L3 browser api -->
+  <rect x="40" y="480" width="880" height="120" class="box" rx="10"/>
+  <rect x="60" y="498" width="34" height="20" rx="5" fill="#EAEEF7" stroke="#2E4B8F"/>
+  <text x="77" y="512" text-anchor="middle" class="mono" font-size="11" fill="#2E4B8F">L3</text>
+  <text x="104" y="513" class="lbl">③ 瀏覽器原生 API 層 — Web Platform APIs</text>
+  <text x="104" y="529" class="sub">window / document</text>
+
+  <rect x="60" y="540" width="260" height="50" class="node"/>
+  <text x="70" y="560" font-size="12" font-weight="600" fill="#181B20">Notification API</text>
+  <text x="70" y="575" class="sub" font-size="10">提醒推播，需使用者授權</text>
+
+  <rect x="340" y="540" width="240" height="50" class="node"/>
+  <text x="350" y="560" font-size="12" font-weight="600" fill="#181B20">setInterval / setTimeout</text>
+  <text x="350" y="575" class="sub" font-size="10">計時心跳</text>
+
+  <rect x="600" y="540" width="300" height="50" class="node"/>
+  <text x="610" y="560" font-size="12" font-weight="600" fill="#181B20">Date 物件</text>
+  <text x="610" y="575" class="sub" font-size="10">時間運算（台灣 UTC+8）</text>
+
+  <text x="480" y="632" text-anchor="middle" class="mono" font-size="12" fill="#6B7178">▾</text>
+
+  <!-- KEYSTONE L4 -->
+  <rect x="40" y="650" width="880" height="220" fill="#EAEEF7" stroke="#2E4B8F" stroke-width="2" rx="10"/>
+  <rect x="60" y="668" width="34" height="20" rx="5" fill="#2E4B8F"/>
+  <text x="77" y="682" text-anchor="middle" class="mono" font-size="11" fill="#ffffff">L4</text>
+  <text x="104" y="683" class="lbl">④ 本機儲存層 — document.cookie</text>
+  <rect x="330" y="668" width="90" height="20" rx="5" fill="#2E4B8F"/>
+  <text x="375" y="682" text-anchor="middle" class="mono" font-size="10" fill="#ffffff">KEYSTONE</text>
+
+  <rect x="60" y="700" width="380" height="60" fill="#ffffff" stroke="#c9d3e8" rx="6"/>
+  <text x="70" y="722" font-size="12" font-weight="600" fill="#181B20">eventSettings</text>
+  <text x="70" y="738" class="sub" font-size="10">活動名稱＋時間，效期 30 天</text>
+
+  <rect x="460" y="700" width="380" height="60" fill="#ffffff" stroke="#c9d3e8" rx="6"/>
+  <text x="470" y="722" font-size="12" font-weight="600" fill="#181B20">theme</text>
+  <text x="470" y="738" class="sub" font-size="10">明亮／低調風格，效期 30 天</text>
+
+  <foreignObject x="60" y="775" width="780" height="85">
+    <div xmlns="http://www.w3.org/1999/xhtml" style="font-family:ui-sans-serif,system-ui,'Segoe UI',Roboto,'Noto Sans TC',sans-serif;font-size:12.5px;line-height:1.55;color:#181B20;">
+      <b style="color:#2E4B8F;">關鍵設計決定：</b>Countdown 沒有伺服器、沒有帳號系統、沒有資料庫——所有活動設定與主題偏好只寫進使用者瀏覽器的
+      <b>Cookie（30 天）</b>，倒數計算與提醒判斷全在前端 JS 完成，<b>沒有任何一筆資料離開使用者的裝置</b>。
+      這是它「單檔零依賴、可離線使用、關掉分頁資料仍在」的來源；代價是清除 Cookie 即遺失設定（HANDOFF.md 已知地雷）。
+    </div>
+  </foreignObject>
+
+  <text x="480" y="902" text-anchor="middle" class="mono" font-size="12" fill="#6B7178">部署（非執行期依賴） <tspan fill="#2E4B8F">▾</tspan></text>
+
+  <!-- L5 external, unconfirmed style -->
+  <rect x="40" y="920" width="880" height="110" fill="#FBFAF7" stroke="#B8860B" stroke-dasharray="6 4" rx="10"/>
+  <rect x="60" y="938" width="34" height="20" rx="5" fill="none" stroke="#B8860B"/>
+  <text x="77" y="952" text-anchor="middle" class="mono" font-size="11" fill="#B8860B">L5</text>
+  <text x="104" y="953" class="lbl">⑤ 外部依賴 — 未確認 / 無執行期外部依賴</text>
+
+  <rect x="60" y="965" width="820" height="50" fill="#ffffff" stroke="#E7E3DA" rx="6"/>
+  <text x="70" y="985" font-size="12" font-weight="600" fill="#181B20">GitHub Pages</text>
+  <text x="70" y="1000" class="sub" font-size="10">僅作靜態檔案托管（README 記載線上網址），非程式執行期呼叫任何 API</text>
+
+  <!-- build log -->
+  <rect x="40" y="1050" width="880" height="180" class="box" rx="10"/>
+  <text x="60" y="1080" class="mono tag">BUILD LOG — 架構重點</text>
+  <text x="60" y="1108" class="mono" font-size="12"><tspan fill="#1F7A54">✓</tspan> <tspan fill="#181B20" font-family="ui-sans-serif,system-ui">五層皆為前端瀏覽器內執行，無 Worker、無 API 層、無資料庫</tspan></text>
+  <text x="60" y="1132" class="mono" font-size="12"><tspan fill="#1F7A54">✓</tspan> <tspan fill="#181B20" font-family="ui-sans-serif,system-ui">唯一資料落地點：Cookie（本機、30 天、不上傳）</tspan></text>
+  <text x="60" y="1156" class="mono" font-size="12"><tspan fill="#2E4B8F">▸</tspan> <tspan fill="#181B20" font-family="ui-sans-serif,system-ui">提醒功能仰賴 Notification API 授權，非 HTTPS（除 localhost）環境可能無法觸發</tspan></text>
+  <text x="60" y="1180" class="mono" font-size="12"><tspan fill="#B03A2E">✗</tspan> <tspan fill="#181B20" font-family="ui-sans-serif,system-ui">外部依賴一欄「未確認」項目已標示，不臆造</tspan></text>
+
+  <text x="480" y="1270" text-anchor="middle" class="mono" font-size="11" fill="#6B7178">docs/architecture.svg · 依 Galley 視覺語言 · 資料來源：專案內實讀檔案，2026-07-24</text>
+</svg>

@@ -1,0 +1,59 @@
+%% Countdown（搶票倒數計時器）架構圖
+%% 純靜態前端工具，無後端、無資料庫、無外部 API 依賴
+%% 來源：實讀 index.html / script.js / styles.css / HANDOFF.md / AGENTS.md（2026-07-24）
+
+flowchart TB
+
+    subgraph L1["① UI 層 — index.html + styles.css（單頁六區塊）"]
+        direction LR
+        A1["標題區<br/>header"]
+        A2["倒數顯示區<br/>countdownSection"]
+        A3["活動設定表單<br/>event-setup"]
+        A4["提醒設定<br/>reminder-settings"]
+        A5["送出／重設按鈕<br/>button-section"]
+        A6["風格選擇<br/>theme-selector"]
+    end
+
+    subgraph L2["② 狀態與邏輯層 — script.js"]
+        direction LR
+        B1["表單驗證<br/>submitEventInfo()"]
+        B2["倒數計算<br/>startCountdown / updateCountdown<br/>setInterval 每秒"]
+        B3["主題切換<br/>changeTheme()"]
+        B4["提醒觸發判斷<br/>checkReminders()"]
+    end
+
+    subgraph L3["③ 瀏覽器原生 API 層"]
+        direction LR
+        C1["Notification API<br/>提醒推播（需使用者授權）"]
+        C2["setInterval / setTimeout<br/>計時心跳"]
+        C3["Date 物件<br/>時間運算（台灣 UTC+8）"]
+    end
+
+    subgraph KEYSTONE["④ 本機儲存層 —— KEYSTONE：唯一資料落地點，全本機、不上傳"]
+        direction LR
+        D1["document.cookie<br/>eventSettings（活動名稱＋時間）<br/>效期 30 天"]
+        D2["document.cookie<br/>theme（明亮／低調）<br/>效期 30 天"]
+    end
+
+    subgraph L5["⑤ 外部依賴"]
+        direction LR
+        E1["未確認／無執行期外部依賴<br/>GitHub Pages 僅作靜態托管，非執行期呼叫"]
+    end
+
+    L1 -->|使用者輸入| L2
+    L2 -->|驅動畫面更新| L1
+    L2 --> C1
+    L2 --> C2
+    L2 --> C3
+    L2 -->|寫入 / 讀取設定| KEYSTONE
+    KEYSTONE -.載入頁面時還原設定與倒數.-> L1
+    C1 -.需 HTTPS 或 localhost，否則可能無法觸發.-> L2
+    L1 -.部署托管，非執行期依賴.-> L5
+
+    classDef layer fill:#FBFAF7,stroke:#E7E3DA,color:#181B20;
+    classDef keystone fill:#EAEEF7,stroke:#2E4B8F,stroke-width:2px,color:#181B20;
+    classDef unconfirmed fill:#FBFAF7,stroke:#B8860B,stroke-dasharray:4 3,color:#181B20;
+
+    class L1,L2,L3 layer;
+    class KEYSTONE,D1,D2 keystone;
+    class L5,E1 unconfirmed;

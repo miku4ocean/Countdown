@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Countdown — Mockup／主計時器頁</title>
+<style>
+:root{
+  --paper:#FBFAF7; --ink:#181B20; --muted:#6B7178;
+  --line:#E7E3DA; --accent:#2E4B8F; --accent-soft:#EAEEF7;
+  --ok:#1F7A54; --err:#B03A2E; --warn:#B8860B;
+  --serif:"Iowan Old Style",Georgia,"Times New Roman",serif;
+  --sans:ui-sans-serif,system-ui,"Segoe UI",Roboto,"Noto Sans TC",sans-serif;
+  --mono:ui-monospace,"SF Mono","Cascadia Code",Menlo,monospace;
+}
+*{box-sizing:border-box;}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.6;padding:32px 20px 64px;}
+.topbar{max-width:640px;margin:0 auto 24px;display:flex;align-items:baseline;justify-content:space-between;}
+.wordmark{font-family:var(--serif);font-size:1.3rem;font-weight:600;margin:0;}
+.wordmark .dot{color:var(--accent);}
+.crumb{font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);}
+.crumb a{color:var(--accent);text-decoration:none;}
+
+.note{
+  max-width:640px;margin:0 auto 24px;border:1px solid var(--line);border-radius:8px;
+  background:#fff;padding:10px 14px;font-family:var(--mono);font-size:.72rem;color:var(--muted);
+}
+.note b{color:var(--ink);}
+
+.phone{
+  max-width:640px;margin:0 auto;border:1px solid var(--line);border-radius:10px;
+  background:#fff;padding:28px 24px;
+}
+.section-title{
+  font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted);margin:0 0 8px;
+}
+header.h{text-align:center;margin-bottom:24px;}
+header.h h1{font-size:1.7rem;font-weight:700;letter-spacing:.05em;margin:0;}
+
+.card{border:1px solid var(--line);border-radius:8px;padding:16px 18px;margin-bottom:16px;background:var(--paper);}
+.time-info p{margin:0 0 8px;font-size:.92rem;}
+.time-info p span{color:var(--muted);}
+.countdown-box{
+  border:1px solid var(--accent);border-radius:8px;background:var(--accent-soft);
+  padding:14px;text-align:center;font-weight:600;font-size:1.05rem;color:var(--accent);
+}
+
+.instruction{font-size:.92rem;color:var(--muted);margin:0 0 12px;}
+.field{margin-bottom:14px;}
+.field label{display:block;font-size:.82rem;font-weight:600;margin-bottom:6px;}
+.field .box{
+  border:1px solid var(--line);border-radius:6px;padding:11px 12px;font-size:.9rem;color:var(--muted);
+  background:#fff;
+}
+
+.reminder-head{font-size:.95rem;font-weight:600;margin:0 0 10px;}
+.radio-row{display:flex;gap:18px;margin-bottom:10px;font-size:.85rem;}
+.radio-row label{display:flex;align-items:center;gap:6px;}
+.swatch{width:12px;height:12px;border:1px solid var(--muted);border-radius:50%;display:inline-block;}
+.chip-row{display:flex;flex-wrap:wrap;gap:8px;padding-top:10px;border-top:1px dashed var(--line);}
+.chip{border:1px solid var(--line);border-radius:20px;padding:5px 12px;font-size:.78rem;color:var(--muted);background:#fff;}
+
+.btn-row{display:flex;gap:12px;}
+.btn{flex:1;text-align:center;border-radius:6px;padding:12px;font-size:.9rem;font-weight:600;}
+.btn.primary{background:var(--ink);color:#fff;}
+.btn.secondary{border:1px solid var(--ink);color:var(--ink);background:#fff;}
+
+.theme-row{display:flex;gap:18px;font-size:.85rem;}
+.theme-row label{display:flex;align-items:center;gap:6px;}
+
+.success{text-align:center;font-size:.95rem;color:var(--muted);margin-top:4px;}
+
+.annot{
+  max-width:640px;margin:24px auto 0;font-family:var(--mono);font-size:.72rem;color:var(--muted);
+}
+.annot .row{margin-bottom:4px;}
+.annot .ok{color:var(--ok);}
+.annot .accent{color:var(--accent);}
+</style>
+</head>
+<body>
+  <div class="topbar">
+    <p class="wordmark">Countdown<span class="dot">.</span></p>
+    <p class="crumb"><a href="index.html">← mockup 總覽</a></p>
+  </div>
+
+  <div class="note">
+    <b>來源：</b>index.html（唯一實際頁面，單頁六區塊）。此為線框稿，非真功能；文案與欄位取自實際程式碼與 HANDOFF.md。
+  </div>
+
+  <div class="phone">
+    <p class="section-title">01 · 標題區</p>
+    <header class="h"><h1>搶票倒數計時器</h1></header>
+
+    <p class="section-title">02 · 活動時間顯示區（#countdownSection）</p>
+    <div class="card">
+      <div class="time-info">
+        <p>活動時間為 <span>尚未設定</span></p>
+        <p>現在時間為 <span>2026:07:24 14:32</span></p>
+      </div>
+      <div class="countdown-box">請先設定活動時間</div>
+    </div>
+
+    <p class="section-title">03 · 輸入活動資訊（.event-setup）</p>
+    <div class="card">
+      <p class="instruction">請輸入活動資訊</p>
+      <div class="field">
+        <label>活動名稱：</label>
+        <div class="box">請輸入活動名稱（限25字）</div>
+      </div>
+      <div class="field">
+        <label>活動時間：</label>
+        <div class="box">選擇活動時間（datetime-local）</div>
+      </div>
+    </div>
+
+    <p class="section-title">04 · 提醒設定（.reminder-settings）</p>
+    <div class="card">
+      <p class="reminder-head">開啟提醒</p>
+      <div class="radio-row">
+        <label><span class="swatch"></span>無提醒</label>
+        <label><span class="swatch"></span>開啟提醒</label>
+      </div>
+      <div class="chip-row">
+        <span class="chip">☐ 1小時前</span>
+        <span class="chip">☐ 30分鐘前</span>
+        <span class="chip">☐ 5分鐘前</span>
+        <span class="chip">☐ 1分鐘前</span>
+      </div>
+    </div>
+
+    <p class="section-title">05 · 確定送出 / 重新設定（.button-section）</p>
+    <div class="card">
+      <div class="btn-row">
+        <div class="btn primary">確定送出</div>
+        <div class="btn secondary">重新設定</div>
+      </div>
+    </div>
+
+    <p class="section-title">06 · 版面風格選擇（.theme-selector）</p>
+    <div class="card">
+      <p class="reminder-head" style="margin-bottom:8px;">版面風格</p>
+      <div class="theme-row">
+        <label><span class="swatch"></span>明亮風格</label>
+        <label><span class="swatch"></span>低調風格</label>
+      </div>
+    </div>
+
+    <p class="section-title">07 · 祝福訊息（.success-message）</p>
+    <p class="success">祝你搶票成功！</p>
+  </div>
+
+  <div class="annot">
+    <p class="row"><span class="ok">✓</span> 表單驗證：空名稱／未選時間／過去時間 → alert 阻擋（script.js submitEventInfo）</p>
+    <p class="row"><span class="accent">▸</span> 送出後每秒重算倒數，時間到顯示「開賣時間已到！」</p>
+    <p class="row"><span class="ok">✓</span> 設定與主題寫入 Cookie（30 天），重新整理頁面自動還原並續跑倒數</p>
+  </div>
+</body>
+</html>

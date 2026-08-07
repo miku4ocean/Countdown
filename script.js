@@ -222,10 +222,14 @@ function loadSavedSettings() {
             document.getElementById('eventName').value = settings.eventName;
             document.getElementById('eventDateTime').value = settings.eventDateTime;
             
-            // 如果活動時間還沒過，自動開始計時
+            // 如果活動時間還沒過，自動開始計時；已過則顯示「已到」
             const eventDate = new Date(settings.eventDateTime);
             if (eventDate > new Date()) {
                 startCountdown(eventDate);
+            } else {
+                updateEventTimeDisplay(eventDate);
+                document.getElementById('countdownDisplay').innerHTML =
+                    '<span style="color: #ff0000; font-weight: bold;">開賣時間已到！</span>';
             }
         } catch (e) {
             console.error('載入設定時發生錯誤:', e);

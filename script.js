@@ -1,7 +1,5 @@
 // 全域變數
 let countdownInterval = null;
-let reminderTimeouts = [];
-
 // DOM 載入完成後初始化
 document.addEventListener('DOMContentLoaded', function() {
     initializeApp();
@@ -338,8 +336,6 @@ function showReminderNotification(timeDiff, reminderMinutes) {
 }
 
 function clearReminders() {
-    reminderTimeouts.forEach(timeout => clearTimeout(timeout));
-    reminderTimeouts = [];
     triggeredReminders.clear(); // 清除已觸發提醒的記錄
     
     // 重置提醒checkbox的狀態

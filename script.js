@@ -165,8 +165,11 @@ function resetForm() {
         countdownInterval = null;
     }
     
-    // 清除提醒
+    // 清除提醒並重置提醒 radio 為「無提醒」
     clearReminders();
+    const noneRadio = document.querySelector('input[name="reminder"][value="none"]');
+    if (noneRadio) noneRadio.checked = true;
+    document.getElementById('reminderTimes').style.display = 'none';
     
     // 清除儲存的設定
     clearSavedSettings();

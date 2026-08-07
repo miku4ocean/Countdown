@@ -271,8 +271,9 @@ function checkReminders(timeDiff) {
             const reminderMinutes = parseInt(checkbox.value);
             const reminderTime = reminderMinutes * 60 * 1000; // 轉換為毫秒
             
-            // 檢查是否接近提醒時間（誤差範圍5秒）且尚未觸發
-            if (timeDiff <= reminderTime && timeDiff > (reminderTime - 5000)) {
+            // 檢查是否已進入或錯過提醒時間且尚未觸發
+            // 使用 <= 而非 5 秒視窗，防止背景分頁節流導致視窗被跳過
+            if (timeDiff <= reminderTime) {
                 const reminderId = `remind_${reminderMinutes}`;
                 if (!triggeredReminders.has(reminderId)) {
                     showReminderNotification(timeDiff, reminderMinutes);
@@ -358,3 +359,20 @@ function requestNotificationPermission() {
 
 // 頁面載入時請求通知權限
 window.addEventListener('load', requestNotificationPermission);
+
+// 背景分頁恢復時立即同步倒數與提醒
+document.addEventListener('visibilitychange', function() {
+    if (!document.hidden && countdownInterval) {
+        // 取得目前正在倒數的活動時間
+        const eventSettings = getCookie('eventSettings');
+        if (eventSettings) {
+            try {
+                const settings = JSON.parse(eventSettings);
+                const eventDate = new Date(settings.eventDateTime);
+                updateCountdown(eventDate);
+            } catch (e) {
+                // 靜默忽略解析錯誤
+            }
+        }
+    }
+});

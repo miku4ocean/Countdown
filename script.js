@@ -17,8 +17,10 @@ function initializeApp() {
     updateCurrentTimeDisplay();
     setInterval(updateCurrentTimeDisplay, 1000);
     
-    // 載入儲存的設定
-    loadSavedSettings();
+    // 優先從 URL query string 載入，其次從 Cookie
+    if (!loadFromURL()) {
+        loadSavedSettings();
+    }
 }
 
 // 綁定所有事件監聽器
@@ -26,6 +28,7 @@ function bindEventListeners() {
     // 表單按鈕
     document.getElementById('submitBtn').addEventListener('click', submitEventInfo);
     document.getElementById('resetBtn').addEventListener('click', resetForm);
+    document.getElementById('shareBtn').addEventListener('click', copyShareLink);
     
     // 主題切換
     const themeRadios = document.querySelectorAll('input[name="theme"]');
@@ -67,6 +70,8 @@ function submitEventInfo() {
     // 儲存設定並開始計時
     saveEventSettings(eventName, eventDateTime);
     startCountdown(eventDate);
+    updateShareURL(eventName, eventDateTime);
+    document.getElementById('shareBtn').style.display = '';
 }
 
 // 開始倒數計時
@@ -171,6 +176,12 @@ function resetForm() {
     
     // 清除儲存的設定
     clearSavedSettings();
+
+    // 隱藏分享按鈕並清除 URL 參數
+    document.getElementById('shareBtn').style.display = 'none';
+    const cleanURL = new URL(window.location.href);
+    cleanURL.search = '';
+    history.replaceState(null, '', cleanURL.toString());
 }
 
 // 切換主題
@@ -232,6 +243,8 @@ function loadSavedSettings() {
                 document.getElementById('countdownDisplay').innerHTML =
                     '<span style="color: #ff0000; font-weight: bold;">開賣時間已到！</span>';
             }
+            document.getElementById('shareBtn').style.display = '';
+            updateShareURL(settings.eventName, settings.eventDateTime);
         } catch (e) {
             console.error('載入設定時發生錯誤:', e);
         }
@@ -362,6 +375,66 @@ function requestNotificationPermission() {
 
 // 頁面載入時請求通知權限
 window.addEventListener('load', requestNotificationPermission);
+
+// === URL 分享功能 ===
+
+// 從 URL query string 載入活動設定（回傳是否有載入）
+function loadFromURL() {
+    const params = new URLSearchParams(window.location.search);
+    const name = params.get('name');
+    const time = params.get('time');
+    if (!name || !time) return false;
+
+    document.getElementById('eventName').value = name;
+    document.getElementById('eventDateTime').value = time;
+
+    const eventDate = new Date(time);
+    if (eventDate > new Date()) {
+        saveEventSettings(name, time);
+        startCountdown(eventDate);
+    } else {
+        updateEventTimeDisplay(eventDate);
+        document.getElementById('countdownDisplay').innerHTML =
+            '<span style="color: #ff0000; font-weight: bold;">開賣時間已到！</span>';
+    }
+    document.getElementById('shareBtn').style.display = '';
+
+    // 同時載入 Cookie 中的主題設定
+    const savedTheme = getCookie('theme');
+    if (savedTheme) {
+        document.body.setAttribute('data-theme', savedTheme);
+        document.querySelector(`input[name="theme"][value="${savedTheme}"]`).checked = true;
+    }
+    return true;
+}
+
+// 更新瀏覽器網址列（不重新載入）
+function updateShareURL(eventName, eventDateTime) {
+    const url = new URL(window.location.href);
+    url.searchParams.set('name', eventName);
+    url.searchParams.set('time', eventDateTime);
+    history.replaceState(null, '', url.toString());
+}
+
+// 複製分享連結到剪貼簿
+function copyShareLink() {
+    const eventName = document.getElementById('eventName').value.trim();
+    const eventDateTime = document.getElementById('eventDateTime').value;
+    if (!eventName || !eventDateTime) return;
+
+    const url = new URL(window.location.href);
+    url.searchParams.set('name', eventName);
+    url.searchParams.set('time', eventDateTime);
+
+    if (navigator.clipboard) {
+        navigator.clipboard.writeText(url.toString()).then(function() {
+            alert('分享連結已複製到剪貼簿！');
+        });
+    } else {
+        // fallback
+        prompt('請複製以下連結分享給朋友：', url.toString());
+    }
+}
 
 // 背景分頁恢復時立即同步倒數與提醒
 document.addEventListener('visibilitychange', function() {

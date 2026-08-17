@@ -4,3 +4,8 @@ dist/
 build/
 .DS_Store
 *.log
+
+# Playwright 測試產物（測試層，不影響純靜態部署）
+test-results/
+playwright-report/
+playwright/.cache/

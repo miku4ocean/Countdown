@@ -1,0 +1,12 @@
+{
+  "name": "countdown",
+  "version": "1.0.0",
+  "description": "搶票倒數計時器（純靜態頁）",
+  "private": true,
+  "scripts": {
+    "test:e2e": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.62.1"
+  }
+}

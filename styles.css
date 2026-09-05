@@ -1,416 +1,330 @@
-/* 重置和基礎設定 */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+/* ── Countdown Timer ── token-based theme system ── */
+
+:root {
+  --bg: #F7F7F5;
+  --surface: #FFFFFF;
+  --surface-2: #F0F0EC;
+  --text: #1A1A1A;
+  --text-2: #6B6B65;
+  --border: #E2E2DD;
+  --accent: #E85D2A;
+  --accent-hover: #D14D1C;
+  --accent-text: #FFFFFF;
+  --countdown-bg: linear-gradient(135deg, #1A1A1A 0%, #2D2D2D 100%);
+  --countdown-text: #FFFFFF;
+  --countdown-num: #FF8C42;
+  --input-bg: #FFFFFF;
+  --input-border: #D4D4CF;
+  --input-focus: #E85D2A;
+  --btn-secondary-bg: #FFFFFF;
+  --btn-secondary-text: #1A1A1A;
+  --btn-secondary-border: #D4D4CF;
+  --radius: 12px;
+  --radius-sm: 8px;
+  --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
 }
+
+body[data-theme="dark"] {
+  --bg: #111113;
+  --surface: #1C1C1F;
+  --surface-2: #252528;
+  --text: #ECECEC;
+  --text-2: #9C9C96;
+  --border: #333336;
+  --accent: #FF8C42;
+  --accent-hover: #FFA366;
+  --accent-text: #111113;
+  --countdown-bg: linear-gradient(135deg, #0A0A0A 0%, #1A1A1A 100%);
+  --countdown-text: #ECECEC;
+  --countdown-num: #FF8C42;
+  --input-bg: #252528;
+  --input-border: #404044;
+  --input-focus: #FF8C42;
+  --btn-secondary-bg: #252528;
+  --btn-secondary-text: #ECECEC;
+  --btn-secondary-border: #404044;
+  --shadow: 0 1px 3px rgba(0,0,0,0.2);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+/* ── Reset ── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft JhengHei', sans-serif;
-    line-height: 1.6;
-    transition: all 0.3s ease;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft JhengHei', sans-serif;
+  line-height: 1.6;
+  background: var(--bg);
+  color: var(--text);
+  transition: background 0.3s, color 0.3s;
+  min-height: 100vh;
 }
 
-/* 主題變數 - 明亮風格（預設） */
-body[data-theme="light"] {
-    background-color: #ffffff;
-    color: #000000;
-}
-
-/* 主題變數 - 低調風格 */
-body[data-theme="dark"] {
-    background-color: #000000;
-    color: #ffffff;
-}
-
-/* 容器佈局 */
+/* ── Layout ── */
 .container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    min-height: 100vh;
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 32px 20px 48px;
 }
 
-/* 標題區塊 */
+/* ── Header ── */
 .header {
-    text-align: center;
-    margin-bottom: 30px;
+  text-align: center;
+  margin-bottom: 32px;
 }
 
 .header h1 {
-    font-size: 2.5rem;
-    font-weight: 700;
-    letter-spacing: 2px;
+  font-size: 1.75rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 }
 
-/* 活動設定區 */
-.event-setup {
-    margin-bottom: 30px;
+.header h1::before {
+  content: '⏱';
+  font-size: 1.5rem;
 }
 
-.instruction {
-    margin-bottom: 20px;
-    font-size: 1.1rem;
-}
-
-.form-group {
-    margin-bottom: 20px;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 500;
-}
-
-.form-group input {
-    width: 100%;
-    padding: 15px;
-    border: 2px solid;
-    border-radius: 6px;
-    font-size: 1.1rem;
-    transition: border-color 0.3s ease;
-    min-height: 50px;
-}
-
-.form-group input[type="datetime-local"] {
-    padding: 18px;
-    font-size: 1.2rem;
-    min-height: 56px;
-}
-
-/* 明亮風格表單 */
-body[data-theme="light"] .form-group input {
-    border-color: #ccc;
-    background-color: #ffffff;
-    color: #000000;
-}
-
-body[data-theme="light"] .form-group input:focus {
-    outline: none;
-    border-color: #666;
-}
-
-/* 低調風格表單 */
-body[data-theme="dark"] .form-group input {
-    border-color: #888;
-    background-color: #404040;
-    color: #ffffff;
-}
-
-body[data-theme="dark"] .form-group input[type="datetime-local"] {
-    border-color: #ffffff;
-    background-color: #505050;
-    color: #ffffff;
-}
-
-body[data-theme="dark"] .form-group input:focus {
-    outline: none;
-    border-color: #ffffff;
-}
-
-body[data-theme="dark"] .form-group input[type="datetime-local"]:focus {
-    border-color: #ffffff;
-    box-shadow: 0 0 0 2px rgba(255,255,255,0.2);
-}
-
-/* 按鈕樣式 */
-.button-group {
-    display: flex;
-    gap: 15px;
-    flex-wrap: wrap;
-}
-
-.btn {
-    padding: 12px 24px;
-    border: 1px solid;
-    border-radius: 4px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    flex: 1;
-    min-width: 120px;
-}
-
-/* 明亮風格按鈕 */
-body[data-theme="light"] .btn.primary {
-    background-color: #000000;
-    color: #ffffff;
-    border-color: #000000;
-}
-
-body[data-theme="light"] .btn.primary:hover {
-    background-color: #333333;
-    border-color: #333333;
-}
-
-body[data-theme="light"] .btn.secondary {
-    background-color: #ffffff;
-    color: #000000;
-    border-color: #000000;
-}
-
-body[data-theme="light"] .btn.secondary:hover {
-    background-color: #f5f5f5;
-}
-
-/* 低調風格按鈕 */
-body[data-theme="dark"] .btn.primary {
-    background-color: #ffffff;
-    color: #000000;
-    border-color: #ffffff;
-}
-
-body[data-theme="dark"] .btn.primary:hover {
-    background-color: #cccccc;
-    border-color: #cccccc;
-}
-
-body[data-theme="dark"] .btn.secondary {
-    background-color: #000000;
-    color: #ffffff;
-    border-color: #ffffff;
-}
-
-body[data-theme="dark"] .btn.secondary:hover {
-    background-color: #333333;
-}
-
-/* 倒數計時顯示區 */
+/* ── Countdown Display ── */
 .countdown-display {
-    margin: 30px 0;
-    padding: 25px;
-    border: 2px solid;
-    border-radius: 8px;
+  margin: 0 0 28px;
+  padding: 28px 24px;
+  background: var(--countdown-bg);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  border: none;
 }
 
-body[data-theme="light"] .countdown-display {
-    border-color: #eee;
+.time-info {
+  margin-bottom: 20px;
 }
 
-body[data-theme="dark"] .countdown-display {
-    border-color: #444;
+.time-info p {
+  margin-bottom: 6px;
+  font-size: 0.875rem;
+  color: var(--countdown-text);
+  opacity: 0.7;
 }
 
-/* 區塊樣式 */
+.countdown-text {
+  font-size: 1.5rem;
+  font-weight: 700;
+  padding: 16px 20px;
+  border: 2px solid rgba(255,140,66,0.3);
+  border-radius: var(--radius-sm);
+  text-align: center;
+  background: rgba(255,140,66,0.08);
+  color: var(--countdown-num);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 1px;
+}
+
+/* ── Sections (cards) ── */
 .event-setup,
 .theme-selector,
 .button-section,
 .reminder-settings {
-    margin: 25px 0;
-    padding: 20px;
-    border: 1px solid;
-    border-radius: 8px;
+  margin: 0 0 16px;
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow);
 }
 
-body[data-theme="light"] .event-setup,
-body[data-theme="light"] .theme-selector,
-body[data-theme="light"] .button-section,
-body[data-theme="light"] .reminder-settings {
-    border-color: #ddd;
-    background-color: #f9f9f9;
+.instruction {
+  margin-bottom: 16px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--text);
 }
 
-body[data-theme="dark"] .event-setup,
-body[data-theme="dark"] .theme-selector,
-body[data-theme="dark"] .button-section,
-body[data-theme="dark"] .reminder-settings {
-    border-color: #444;
-    background-color: #111111;
+/* ── Form ── */
+.form-group {
+  margin-bottom: 16px;
 }
 
-/* 區塊標題 */
+.form-group:last-child {
+  margin-bottom: 0;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text-2);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1.5px solid var(--input-border);
+  border-radius: var(--radius-sm);
+  font-size: 0.9375rem;
+  background: var(--input-bg);
+  color: var(--text);
+  transition: border-color 0.2s, box-shadow 0.2s;
+  min-height: 46px;
+}
+
+.form-group input::placeholder {
+  color: var(--text-2);
+  opacity: 0.6;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--input-focus);
+  box-shadow: 0 0 0 3px rgba(232,93,42,0.12);
+}
+
+.form-group input[type="datetime-local"] {
+  padding: 12px 14px;
+  font-size: 0.9375rem;
+  min-height: 46px;
+}
+
+/* ── Buttons ── */
+.button-group {
+  display: flex;
+  gap: 10px;
+}
+
+.button-section .button-group + .button-group {
+  margin-top: 10px;
+}
+
+.btn {
+  padding: 11px 20px;
+  border: 1.5px solid transparent;
+  border-radius: var(--radius-sm);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex: 1;
+  min-width: 0;
+  text-align: center;
+}
+
+.btn.primary {
+  background: var(--accent);
+  color: var(--accent-text);
+  border-color: var(--accent);
+}
+
+.btn.primary:hover {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+  box-shadow: 0 2px 8px rgba(232,93,42,0.25);
+}
+
+.btn.primary:active {
+  transform: scale(0.98);
+}
+
+.btn.secondary {
+  background: var(--btn-secondary-bg);
+  color: var(--btn-secondary-text);
+  border-color: var(--btn-secondary-border);
+}
+
+.btn.secondary:hover {
+  background: var(--surface-2);
+  border-color: var(--text-2);
+}
+
+/* ── Section titles ── */
 .theme-selector h3,
 .reminder-settings h3 {
-    margin-bottom: 15px;
-    font-size: 1.2rem;
-    font-weight: 600;
+  margin-bottom: 12px;
+  font-size: 0.9375rem;
+  font-weight: 600;
 }
 
-.time-info {
-    margin-bottom: 30px;
-}
-
-.time-info p {
-    margin-bottom: 10px;
-    font-size: 1.1rem;
-}
-
-.countdown-text {
-    font-size: 1.3rem;
-    font-weight: 600;
-    padding: 15px;
-    border: 2px solid;
-    border-radius: 8px;
-    text-align: center;
-}
-
-body[data-theme="light"] .countdown-text {
-    border-color: #888888;
-    background-color: #000000;
-    color: #ffff00;
-}
-
-body[data-theme="dark"] .countdown-text {
-    border-color: #ffffff;
-    background-color: #000000;
-    color: #ffff00;
-}
-
-/* 風格切換和提醒選項樣式 */
+/* ── Radio / Checkbox labels ── */
 .theme-selector label,
 .reminder-option label,
 .reminder-times label {
-    margin-right: 20px;
-    cursor: pointer;
-    display: inline-block;
-    margin-bottom: 10px;
-    font-size: 1rem;
-    font-weight: 500;
+  position: relative;
+  margin-right: 16px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text);
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: 1.5px solid var(--border);
+  transition: border-color 0.2s, background 0.2s;
 }
 
-/* 提醒設定樣式調整 */
+.theme-selector label:hover,
+.reminder-option label:hover,
+.reminder-times label:hover {
+  border-color: var(--accent);
+  background: rgba(232,93,42,0.04);
+}
+
+.theme-selector input[type="radio"],
+.reminder-option input[type="radio"],
+.reminder-times input[type="checkbox"] {
+  accent-color: var(--accent);
+}
+
 .reminder-option {
-    margin-bottom: 15px;
+  margin-bottom: 12px;
 }
 
 .reminder-times {
-    margin-top: 15px;
-    padding-top: 15px;
-    border-top: 1px solid;
-}
-
-body[data-theme="light"] .reminder-times {
-    border-color: #ccc;
-}
-
-body[data-theme="dark"] .reminder-times {
-    border-color: #555;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
 }
 
 .reminder-times label {
-    display: block;
-    margin-right: 0;
+  display: inline-flex;
+  margin-right: 8px;
 }
 
-/* 祝福訊息 */
+/* ── Success message ── */
 .success-message {
-    text-align: center;
-    margin: 40px 0;
-    font-size: 1.2rem;
-    font-weight: 500;
+  text-align: center;
+  margin: 32px 0 0;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--text-2);
 }
 
-/* 響應式設計 */
+.success-message p::before {
+  content: '🎉 ';
+}
+
+/* ── Responsive ── */
 @media (max-width: 768px) {
-    .container {
-        padding: 15px;
-    }
-    
-    .header h1 {
-        font-size: 2rem;
-        letter-spacing: 1px;
-    }
-    
-    .button-group {
-        flex-direction: column;
-        gap: 10px;
-    }
-    
-    .btn {
-        flex: none;
-        min-width: auto;
-    }
-    
-    .theme-selector label,
-    .reminder-option label {
-        display: block;
-        margin-bottom: 10px;
-        margin-right: 0;
-    }
-    
-    .time-info p {
-        font-size: 1rem;
-    }
-    
-    .countdown-text {
-        font-size: 1.1rem;
-        padding: 12px;
-    }
-    
-    .theme-selector,
-    .reminder-settings {
-        padding: 15px;
-    }
+  .container { padding: 20px 16px 40px; }
+  .header h1 { font-size: 1.5rem; }
+  .button-group { flex-direction: column; gap: 8px; }
+  .btn { flex: none; }
+  .theme-selector label,
+  .reminder-option label { display: inline-flex; margin-bottom: 8px; }
+  .countdown-text { font-size: 1.25rem; padding: 14px 16px; }
 }
 
 @media (max-width: 480px) {
-    .container {
-        padding: 10px;
-        max-width: 100%;
-    }
-    
-    .header {
-        margin-bottom: 25px;
-    }
-    
-    .header h1 {
-        font-size: 1.8rem;
-        letter-spacing: 0.5px;
-    }
-    
-    .form-group {
-        margin-bottom: 15px;
-    }
-    
-    .form-group input,
-    .btn {
-        font-size: 0.9rem;
-        padding: 10px;
-    }
-    
-    .countdown-text {
-        font-size: 1rem;
-        padding: 10px;
-    }
-    
-    .theme-selector,
-    .reminder-settings {
-        padding: 12px;
-    }
-    
-    .reminder-times label {
-        font-size: 0.9rem;
-        margin-bottom: 8px;
-    }
-    
-    .success-message {
-        font-size: 1.1rem;
-        margin: 30px 0;
-    }
-}
-
-@media (max-width: 320px) {
-    .container {
-        padding: 8px;
-    }
-    
-    .header h1 {
-        font-size: 1.6rem;
-    }
-    
-    .form-group input,
-    .btn {
-        font-size: 0.85rem;
-        padding: 8px;
-    }
-    
-    .countdown-text {
-        font-size: 0.9rem;
-        padding: 8px;
-    }
-    
-    .time-info p {
-        font-size: 0.9rem;
-    }
+  .container { padding: 16px 12px 32px; }
+  .header h1 { font-size: 1.35rem; }
+  .header h1::before { font-size: 1.2rem; }
+  .form-group input, .btn { font-size: 0.875rem; }
+  .countdown-text { font-size: 1.1rem; padding: 12px; }
+  .event-setup, .theme-selector, .button-section, .reminder-settings { padding: 16px; }
 }

@@ -1,3 +1,5 @@
+[![CI](https://github.com/miku4ocean/Countdown/actions/workflows/ci.yml/badge.svg)](https://github.com/miku4ocean/Countdown/actions/workflows/ci.yml)
+
 # 搶票計時器 | Countdown Timer
 
 一個專為搶票而生的精準倒數計時器，具備雙主題切換、智能提醒、資料保存等功能。
